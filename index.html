@@ -539,6 +539,104 @@
     .disclaimer p + p {
       margin-top: 10px;
     }
+
+    /* 用語説明・結果ガイド（全シミュレーター共通） */
+    .label-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .label-row label {
+      margin-bottom: 0;
+    }
+
+    .term-help-btn {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 1px solid #cbd5e0;
+      background: #edf2f7;
+      color: #4a5568;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      line-height: 1;
+      padding: 0;
+      font-family: inherit;
+    }
+
+    .term-help-btn:hover,
+    .term-help-btn:focus-visible {
+      background: #dbeafe;
+      border-color: #90cdf4;
+      outline: none;
+    }
+
+    .term-help-panel {
+      display: none;
+      margin: 0 0 10px;
+      padding: 10px 12px;
+      background: #f7fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      color: #4a5568;
+      line-height: 1.65;
+    }
+
+    .term-help-panel.open {
+      display: block;
+    }
+
+    .result-guide {
+      margin-top: 16px;
+      padding: 14px 16px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      background: #f7fafc;
+    }
+
+    .result-guide-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: #4a5568;
+      margin-bottom: 8px;
+    }
+
+    .result-guide-body {
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: #2d3748;
+    }
+
+    .result-guide-detail {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.8rem;
+      color: #718096;
+    }
+
+    .result-guide--good {
+      border-left: 4px solid #38a169;
+      background: #f0fff4;
+    }
+
+    .result-guide--warn {
+      border-left: 4px solid #d69e2e;
+      background: #fffff0;
+    }
+
+    .result-guide--bad {
+      border-left: 4px solid #e53e3e;
+      background: #fff5f5;
+    }
+
+    .result-guide--neutral {
+      border-left: 4px solid #cbd5e0;
+    }
   </style>
 </head>
 <body>
@@ -565,14 +663,22 @@
         <h2>入力条件</h2>
         <form id="simForm" autocomplete="off">
           <div class="form-group">
-            <label for="currentAge">現在年齢</label>
+            <div class="label-row">
+              <label for="currentAge">現在年齢</label>
+              <button type="button" class="term-help-btn" data-term-help="currentAge" aria-expanded="false" aria-controls="termHelp-currentAge">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-currentAge"></div>
             <div class="input-wrap">
               <input type="number" id="currentAge" value="55" min="0" max="120" step="1">
               <span class="unit">歳</span>
             </div>
           </div>
           <div class="form-group">
-            <label for="retireAge">退職年齢</label>
+            <div class="label-row">
+              <label for="retireAge">退職年齢</label>
+              <button type="button" class="term-help-btn" data-term-help="retireAge" aria-expanded="false" aria-controls="termHelp-retireAge">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-retireAge"></div>
             <div class="input-wrap">
               <input type="number" id="retireAge" value="65" min="0" max="120" step="1">
               <span class="unit">歳</span>
@@ -580,7 +686,11 @@
             <p class="hint">この年齢から取り崩しシミュレーションを開始します</p>
           </div>
           <div class="form-group">
-            <label for="cashAssets">現金・預金</label>
+            <div class="label-row">
+              <label for="cashAssets">現金・預金</label>
+              <button type="button" class="term-help-btn" data-term-help="cashAssets" aria-expanded="false" aria-controls="termHelp-cashAssets">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-cashAssets"></div>
             <div class="input-wrap">
               <input type="text" inputmode="numeric" class="money-input" id="cashAssets" value="1000" autocomplete="off">
               <span class="unit">万円</span>
@@ -589,7 +699,11 @@
             <p class="hint">退職時点で保有している現金・預金額を入力してください。</p>
           </div>
           <div class="form-group">
-            <label for="investAssets">運用資産</label>
+            <div class="label-row">
+              <label for="investAssets">運用資産</label>
+              <button type="button" class="term-help-btn" data-term-help="investAssets" aria-expanded="false" aria-controls="termHelp-investAssets">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-investAssets"></div>
             <div class="input-wrap">
               <input type="text" inputmode="numeric" class="money-input" id="investAssets" value="2000" autocomplete="off">
               <span class="unit">万円</span>
@@ -598,14 +712,22 @@
             <p class="hint">退職後も運用を継続する資産額を入力してください。</p>
           </div>
           <div class="form-group">
-            <label for="pensionMonthly">毎月の年金受給額</label>
+            <div class="label-row">
+              <label for="pensionMonthly">毎月の年金受給額</label>
+              <button type="button" class="term-help-btn" data-term-help="pensionMonthly" aria-expanded="false" aria-controls="termHelp-pensionMonthly">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-pensionMonthly"></div>
             <div class="input-wrap">
               <input type="number" id="pensionMonthly" value="15" min="0" step="0.1">
               <span class="unit">万円</span>
             </div>
           </div>
           <div class="form-group">
-            <label for="livingMonthly">毎月の生活費</label>
+            <div class="label-row">
+              <label for="livingMonthly">毎月の生活費</label>
+              <button type="button" class="term-help-btn" data-term-help="livingMonthly" aria-expanded="false" aria-controls="termHelp-livingMonthly">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-livingMonthly"></div>
             <div class="input-wrap">
               <input type="number" id="livingMonthly" value="25" min="0" step="0.1">
               <span class="unit">万円</span>
@@ -613,7 +735,11 @@
             <p class="hint">住居費・食費・光熱費など、老後の月々の支出目安</p>
           </div>
           <div class="form-group">
-            <label for="returnRate">運用利回り</label>
+            <div class="label-row">
+              <label for="returnRate">運用利回り</label>
+              <button type="button" class="term-help-btn" data-term-help="returnRate" aria-expanded="false" aria-controls="termHelp-returnRate">?</button>
+            </div>
+            <div class="term-help-panel" id="termHelp-returnRate"></div>
             <div class="input-wrap">
               <input type="number" id="returnRate" value="3" min="0" max="30" step="0.1">
               <span class="unit">%/年</span>
@@ -636,6 +762,8 @@
             <div class="judgment-message" id="judgmentMessage">—</div>
             <div class="judgment-detail" id="judgmentDetail">—</div>
           </div>
+
+          <div id="resultGuide" class="result-guide result-guide--neutral"></div>
 
           <div class="results-milestones">
             <div class="result-item" id="card80">
@@ -713,6 +841,70 @@
   </div>
 
   <script>
+    /**
+     * 用語説明・結果ガイド共通UI
+     * 各シミュレーターの index.html に同内容を埋め込んで使用
+     */
+    var SimulatorUI = (function () {
+      /** 用語説明パネルにテキストをセットし、?ボタンの開閉を設定 */
+      function initTermHelp(terms) {
+        Object.keys(terms).forEach(function (key) {
+          var panel = document.getElementById("termHelp-" + key);
+          if (panel) panel.textContent = terms[key];
+        });
+
+        document.querySelectorAll(".term-help-btn").forEach(function (btn) {
+          btn.addEventListener("click", function (e) {
+            e.preventDefault();
+            var key = btn.getAttribute("data-term-help");
+            var panel = document.getElementById("termHelp-" + key);
+            if (!panel) return;
+
+            var willOpen = !panel.classList.contains("open");
+            document.querySelectorAll(".term-help-panel").forEach(function (p) {
+              p.classList.remove("open");
+            });
+            document.querySelectorAll(".term-help-btn").forEach(function (b) {
+              b.setAttribute("aria-expanded", "false");
+            });
+
+            if (willOpen) {
+              panel.classList.add("open");
+              btn.setAttribute("aria-expanded", "true");
+            }
+          });
+        });
+      }
+
+      /** 結果の見方エリアを更新（level: good / warn / bad / neutral） */
+      function renderResultGuide(id, level, message, detail) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.className = "result-guide result-guide--" + level;
+        el.innerHTML =
+          '<div class="result-guide-title">結果の見方</div>' +
+          '<div class="result-guide-body">' +
+          message +
+          (detail
+            ? '<span class="result-guide-detail">' + detail + "</span>"
+            : "") +
+          "</div>";
+      }
+
+      function clearResultGuide(id) {
+        var el = document.getElementById(id);
+        if (!el) return;
+        el.className = "result-guide result-guide--neutral";
+        el.innerHTML = "";
+      }
+
+      return {
+        initTermHelp: initTermHelp,
+        renderResultGuide: renderResultGuide,
+        clearResultGuide: clearResultGuide,
+      };
+    })();
+
     const MAX_AGE = 100;
     const MALE_AVG_AGE = 81;
     const FEMALE_AVG_AGE = 87;
@@ -933,6 +1125,33 @@
       return depletionAge === null || depletionAge > targetAge;
     }
 
+    function updateResultGuide(depletionAge, assetAt90) {
+      var level, message, detail;
+
+      if (depletionAge !== null && depletionAge < 90) {
+        level = "bad";
+        message = "🔴 " + depletionAge + "歳頃に資産が底をつく見込みです。";
+        detail = "80代前後までに備えを見直してみると、安心につながるかもしれません。";
+      } else if (
+        (depletionAge !== null && depletionAge >= 90 && depletionAge <= 94) ||
+        (depletionAge === null && assetAt90 !== null && assetAt90 < 500)
+      ) {
+        level = "warn";
+        message = "🟡 90歳前後はややギリギリの可能性があります。";
+        detail = depletionAge !== null
+          ? depletionAge + "歳頃に枯渇する試算です。"
+          : "90歳時点の残資産は " + formatManYen(assetAt90) + " です。";
+      } else {
+        level = "good";
+        message = "🟢 現在の条件では老後資金が不足する可能性は低そうです。";
+        detail = depletionAge === null
+          ? "100歳時点まで資産が残る試算です。"
+          : "かなり先まで資産が持つ見込みです。";
+      }
+
+      SimulatorUI.renderResultGuide("resultGuide", level, message, detail);
+    }
+
     let chart = null;
 
     function initChart() {
@@ -1043,6 +1262,7 @@
       renderLifespanCompare(depletionAge, params.retireAge);
 
       updateChart(timeline, depletionAge);
+      updateResultGuide(depletionAge, assetAt90);
     }
 
     initChart();
@@ -1057,6 +1277,16 @@
     Object.values(inputs).forEach((el) => {
       if (el === inputs.cashAssets || el === inputs.investAssets) return;
       el.addEventListener('input', update);
+    });
+
+    SimulatorUI.initTermHelp({
+      currentAge: "現在の年齢です。退職まであと何年かを考えるときの起点になります。",
+      retireAge: "退職して収入が変わる年齢です。この年齢から取り崩しシミュレーションを始める想定です。",
+      cashAssets: "退職時点の現金・預金の合計です。すぐ使える資産の目安を入れてください。",
+      investAssets: "退職後も運用を続ける想定の資産です。投資信託や株式などを含めた金額です。",
+      pensionMonthly: "毎月もらえる年金の目安です。公的年金に加え、企業年金などがある場合は合算で入れてみてください。",
+      livingMonthly: "老後の毎月の生活費です。住居費・食費・光熱費など、日常の支出合計の目安です。",
+      returnRate: "運用資産に対する年利回りの想定です。保守的な数字から試してみると安心です。"
     });
 
     update();
